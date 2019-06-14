@@ -7,7 +7,6 @@ import { Ingredient } from '../shared/ingredient.model';
 export class ShoppingListService {
   ingredientEmitter: EventEmitter<Ingredient[]> = new EventEmitter<Ingredient[]>();
   private ingredients: Ingredient[] = [];
-  constructor() { }
 
   addIngredient(ingredient: Ingredient): void {
     this.ingredients.push(ingredient);
@@ -22,5 +21,14 @@ export class ShoppingListService {
   deleteIngredient(): void {
     this.ingredients.pop();
     this.ingredientEmitter.emit(this.ingredients.slice());
+  }
+
+  addIngredients(ingredients: Ingredient[]) : void {
+    this.ingredients.push(...ingredients);
+    this.ingredientEmitter.emit(this.ingredients.slice());
+  }
+
+  getIngredients(): Ingredient[] {
+    return this.ingredients.slice();
   }
 }
